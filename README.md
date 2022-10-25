@@ -12,7 +12,18 @@ An example is better than a thousand words:
 `serverize ls`
 will expose the command ls to the network. Thus calling the endpoint http://localhost:8000//home/user/ will execute the command `ls /home/user/` and return the output the command as http response.
 
-`serverize curl` will basically create a very basic proxy 
+### Other examples
+
+`serverize echo`  
+will send back whatever you pass as GET path (actally everything after the first `/` in the request, and `&`s will be translated to spaces)  
+
+`serverize python myscript.py`  
+you can pass a command which has its own parameters, the http parameters will be appended after
+
+`serverize curl`  
+will basically create a very basic proxy
+
+
 
 Any `&` will be translated to spaces. 
 
