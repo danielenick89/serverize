@@ -15,7 +15,7 @@ will expose the command ls to the network. Thus calling the endpoint http://loca
 ### Other examples
 
 `serverize echo`  
-will send back whatever you pass as GET path (actally everything after the first `/` in the request, and `&`s will be translated to spaces)  
+will send back whatever you pass as GET path (actually everything after the first `/` in the request, and `&`s will be translated to spaces)  
 
 `serverize python myscript.py`  
 you can pass a command which has its own parameters, the http parameters will be appended after
@@ -27,7 +27,8 @@ will basically create a very basic proxy
 Any `&` will be translated to spaces. 
 
 ## Why
-It happened many times to me that I had prototyped something on my computer and I wanted to quickly interface this to other components (a web server running somewhere else, a PHP script, etc.) to test it or make a proof of concept. Serverize was born like this, since it's pretty easy to make a simple http request: you can curl, file_get_contents(), or even ajax your command in this way. In testing times, it can be a way to avoid headaches with user permissions, reachability from a different host, or simply avoid using os.system("mycommand") or equivalent which can be unsafe if used lightly. Still remember this was not thought to be a serious, reliable or secure tool. 
+It happened many times to me that I had prototyped something on my computer and I wanted to quickly interface this to other components (a web server running somewhere else, a PHP script, etc.) to test it or make a proof of concept. Serverize was born like this, since it's pretty easy to make a simple http request: you can curl, file_get_contents(), or even ajax your command in this way. In testing times, it can be a way to avoid headaches with user permissions, reachability from a different host, or simply avoid using os.system("mycommand") or equivalent which can be unsafe if used lightly.  
+Keep in mind this was not thought to be a serious, reliable nor secure tool. 
 
 ## Installation
 Make sure you have Python 3+ installed on your system. Then download the file and make it executable (`chmod +x serverize` on linux/mac). You might want to move it in your `PATH` to use it from anywhere.
