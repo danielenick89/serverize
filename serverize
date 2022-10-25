@@ -29,13 +29,6 @@ print("Starting server for command `%s` on port" % command, port,"..")
 # PORT = 8000
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
-    """
-    SimpleHTTPServer with added bonus of:
-
-    - handle PUT requests
-    - log headers in GET request
-    """
-
     def do_GET(self):
         parameters = self.path[1:].split("&")
         opts = command.split(" ") + parameters
@@ -50,7 +43,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         print("not impl")
 
-with socketserver.TCPServer(("", port), MyHandler) as httpd:
+with socketserver.TCPServer(("127.0.0.1", port), MyHandler) as httpd: #remove 127.0.0.1 to open to network (potentially unsafe)
     print("serving at port", port)
     try:
         httpd.serve_forever()
