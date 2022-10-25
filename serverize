@@ -30,8 +30,9 @@ print("Starting server for command `%s` on port" % command, port,"..")
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        parameters = self.path[1:].split("&")
-        if parameters[0] == '': parameters.pop()
+        parameters = []
+        if len(self.path) > 1:
+            parameters = self.path[1:].split("&")
         opts = command.split(" ") + parameters
         print(opts)
         out = subprocess.check_output(opts)
