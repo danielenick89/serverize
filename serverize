@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+
+import sys,subprocess,os
+import http.server,socketserver
+
+
+
+def usage():
+    print("Usage: %s [-p port] <command>" % sys.argv[0])
+    sys.exit()
+
+if len(sys.argv) == 1:
+    usage()
+
+port = 8000
+command =" ".join(sys.argv[1:])
+if sys.argv[1] == '-p':
+    if len(sys.argv) < 4:
+        usage()
+    port = int(sys.argv[2])
+
+    command = " ".join(sys.argv[3:])
+
+
+print("Starting server for command `%s` on port" % command, port,"..")
+
+
+
+# PORT = 8000
+
+class MyHandler(http.server.SimpleHTTPRequestHandler):
+    """
+    SimpleHTTPServer with added bonus of:
+
+    - handle PUT requests
+    - log headers in GET request
+    """
+
+    def do_GET(self):
+        parameters = self.path[1:].split("&")
+        opts = command.split(" ") + parameters
+        print(opts)
+        out = subprocess.check_output(opts)
+        self.send_response(200)
+        self.send_header('Content-type','text/html')
+        self.send_header("Content-length", len(out))
+        self.end_headers()
+        self.wfile.write(out)
+
+    def do_POST(self):
+        print("not impl")
+
+with socketserver.TCPServer(("", port), MyHandler) as httpd:
+    print("serving at port", port)
+    try:
+        httpd.serve_forever()
+    except:
+        print("Exiting.")
+        sys.exit()
